@@ -1,5 +1,3 @@
-vim.keymap.set('i', 'jk', '<Esc>', {noremap = true})
-vim.g.mapleader = " "
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -15,29 +13,16 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     os.exit(1)
   end
 end
+
 vim.opt.rtp:prepend(lazypath)
 
+require("vim-options")
 require("lazy").setup({
   spec = {
-	  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	  {
-	  'nvim-telescope/telescope.nvim', version = '*',
-    dependencies = {
-        'nvim-lua/plenary.nvim',
-        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-   }
-    }
+    { import = "plugins" },
   },
-
   checker = { enabled = true },
 })
-
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-
-require("catppuccin").setup()
-vim.cmd.colorscheme "catppuccin"
 
 
 	
